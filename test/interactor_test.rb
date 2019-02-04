@@ -122,4 +122,21 @@ class InteractorTest < Minitest::Test
     assert exception.message.include? '@foo'
   end
 
+
+  def test_provides_despite_exception
+    klass = Class.new do
+      include Logicum::Interactor
+
+      provides :foo
+
+      def call
+        @foo = 153
+        raise
+      end
+    end
+
+    result = klass.new.call
+    assert_equal 153, result.foo
+  end
+
 end

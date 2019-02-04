@@ -48,15 +48,17 @@ module Logicum
           super
         rescue StandardError => e
           @__result__.fail! e.message
-        else
-          self.class.provisions.each do |attr|
-            ivar_name = "@#{attr}"
-            if instance_variable_defined? ivar_name
-              val = instance_variable_get ivar_name
-              @__result__.define_singleton_method(attr) { val }
-            else
-              raise ProvisionError, "#{ivar_name} was not set in call() method"
-            end
+        end
+
+        self.class.provisions.each do |attr|
+          ivar_name = "@#{attr}"
+          if instance_variable_defined? ivar_name
+            val = instance_variable_get ivar_name
+            @__result__.define_singleton_method(attr) { val }
+          else
+            # Calling code must ensure instance variables to provide are
+            # set before any code which could raise an exception.
+            raise ProvisionError, "#{ivar_name} was not set in call() method"
           end
         end
 
