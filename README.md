@@ -2,6 +2,9 @@
 
 A simple, consistent interface for executing a unit of business logic.
 
+
+## Usage
+
 In a nutshell:
 
 ```ruby
@@ -41,6 +44,24 @@ If you don't need to pass arguments into your initializer, you can send `:call` 
 ```ruby
 result = DoSomething.call params: {foo: 42}
 ```
+
+The result is successful unless an exception is raised.  You can also explicitly make the result a failure using the `fail!` method, which takes an optional string message.
+
+```ruby
+class DoSomething
+  include Logicum::Interactor
+
+  def call(foo:)
+    fail! 'This went wrong'
+  end
+end
+
+result = DoSomething.call 153
+result.failure?  # true
+resut.error      # 'This went wrong'
+```
+
+## Purpose
 
 The motivation was to move all business logic out of Rails controllers.
 
