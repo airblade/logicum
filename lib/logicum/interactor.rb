@@ -24,7 +24,7 @@ module Logicum
         provisions.concat instance_variable_names
       end
 
-      # Shortcut for caller if nothing needed in intializer.
+      # Shortcut for caller if nothing needed in initializer.
       # For example:
       #
       #     AddUser.call foo: 'bar'
