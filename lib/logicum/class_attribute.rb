@@ -1,7 +1,5 @@
 # https://github.com/hanami/utils/blob/master/lib/hanami/utils/class_attribute.rb
 
-require 'set'
-
 module Logicum
   module ClassAttribute
 
