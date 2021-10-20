@@ -32,14 +32,14 @@ module Logicum
       # is equivalent to:
       #
       #     AddUser.new.call foo: 'bar'
-      def call(*args, &block)
-        new.call *args, &block
+      def call(*args, **kwargs, &block)
+        new.call *args, **kwargs, &block
       end
     end
 
 
     module CallInterface
-      def call(*)
+      def call(*, **)
         raise MissingCallError unless defined? super
 
         @__result__ = Result.new
